@@ -16,7 +16,7 @@ func recoveryHandler(c *gin.Context, error *recovery.HttpError) {
 		})
 	} else {
 		// render html error page.
-		c.HTML(500, "error.html", gin.H{
+		c.HTML(error.Status, "error.html", gin.H{
 			"title": "Error",
 			"err": error,
 		})
