@@ -2,16 +2,24 @@
 The recovery of gin.
 
 
+## Example
 ```go
-import recovery
+import (
+	"github.com/gin-gonic/gin"
+	"strings"
+	"github.com/androvideo-dev/gin-recovery"
+)
 
-router.Use(recovery.Recovery(recoveryHandler))
+func main() {
+	router := gin.Default()
+    router.Use(recovery.Recovery(recoveryHandler))
+}
 
 func recoveryHandler(c *gin.Context, error *recovery.HttpError) {
 	if c.Request.Header.Get("Content-Type") == "application/json" {
 		c.AbortWithStatusJSON(error.Status, gin.H{
 			"error": error.Message,
-			"stack": strings.Split(string(errors.Stack(4)), "\n"),
+			"stack": strings.Split(string(recovery.Stack(4)), "\n"),
 			"extra": error.Extra,
 		})
 	} else {
