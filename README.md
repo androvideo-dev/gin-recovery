@@ -12,7 +12,7 @@ import (
 
 func main() {
 	router := gin.Default()
-    router.Use(recovery.Recovery(recoveryHandler))
+	router.Use(recovery.Recovery(recoveryHandler))
 }
 
 func recoveryHandler(c *gin.Context, error *recovery.HttpError) {
