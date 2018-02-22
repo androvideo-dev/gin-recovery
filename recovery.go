@@ -36,14 +36,14 @@ func Recovery(handler HandlerFunc) gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 		defer func() {
-			if err := recover(); err != nil {
+			if error := recover(); error != nil {
 				var httpError HttpError
-				if err, ok := err.(HttpError); ok {
+				if err, ok := error.(HttpError); ok {
 					httpError = err
 				} else {
 					httpError = HttpError{
 						Status:  http.StatusInternalServerError,
-						Message: fmt.Sprintf("%s", err),
+						Message: fmt.Sprintf("%+v", error),
 					}
 				}
 				if logger != nil {
