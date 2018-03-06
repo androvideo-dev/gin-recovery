@@ -17,7 +17,7 @@ func main() {
 }
 
 func recoveryHandler(c *gin.Context, error *recovery.HttpError) {
-	if c.Request.Header.Get("Content-Type") == "application/json" {
+	if c.GetHeader("Content-Type") == "application/json" {
 		c.AbortWithStatusJSON(error.Status, gin.H{
 			"error": error.Message,
 			"stack": strings.Split(string(recovery.Stack(4)), "\n"),
